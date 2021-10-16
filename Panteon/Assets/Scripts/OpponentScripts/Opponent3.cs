@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//BURAYA BAKARLAR
 public class Opponent3 : MonoBehaviour
 {
     private Transform target;
