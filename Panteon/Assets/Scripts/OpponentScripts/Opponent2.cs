@@ -10,11 +10,12 @@ public class Opponent2 : MonoBehaviour
     private int wavepointIndex = 0;
     private bool gameOver = false;
     private bool isOnGround = true;
-    public TextMeshProUGUI birandTime;
-    private Vector3 distanceTravelZ;
+    public TextMeshProUGUI enesTime;
+    public float timeCollapse;
     void Start()
     {
-        birandTime.text = "BİRAND " + distanceTravelZ.z;
+        timeCollapse = 0.0f;
+        enesTime.text = "ENES " + timeCollapse;
         target = OpponentWayPoints2.points[0];
     }
 
@@ -30,8 +31,8 @@ public class Opponent2 : MonoBehaviour
             GetNextWayPoint();
         }
         restartGame();
-        distanceTravelZ.z += transform.position.z;
-        birandTime.text = "BİRAND " + distanceTravelZ.z.ToString("0");
+        timeCollapse += Time.deltaTime;
+        enesTime.text = "ENES " + timeCollapse.ToString("F1");
     }
 
     void GetNextWayPoint()
@@ -50,8 +51,8 @@ public class Opponent2 : MonoBehaviour
         if (transform.position.y < -5.0f)
         {
             transform.position = new Vector3(8, 0, 6);
-            distanceTravelZ.z = 0;
-            birandTime.text = "BİRAND " + distanceTravelZ.z;
+            timeCollapse = 0;
+            enesTime.text = "ENES " + timeCollapse.ToString("F1") ;
         }
     }
 
@@ -68,14 +69,14 @@ public class Opponent2 : MonoBehaviour
         {
             gameOver = false;
             transform.position = new Vector3(8, 0, 6);
-            distanceTravelZ.z = 0;
-            birandTime.text = "BİRAND " + distanceTravelZ.z;
+            timeCollapse = 0;
+            enesTime.text = "ENES " + timeCollapse.ToString("F1");
 
         }
         else if (collision.gameObject.CompareTag("FinishLine"))
         {
 
-
+            enesTime.text = "ENES " + timeCollapse.ToString("F1");
             gameOver = true;
 
         }

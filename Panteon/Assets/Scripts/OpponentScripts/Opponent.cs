@@ -11,11 +11,11 @@ public class Opponent : MonoBehaviour
     private bool gameOver = false;
     private bool isOnGround = true;
     public TextMeshProUGUI senolTime;
-    private Vector3 distanceTravelZ;
+    public float timeCollapse;
     void Start()
     {
-        distanceTravelZ.z = 0;
-        senolTime.text = "ŞENOL " + distanceTravelZ.z;
+       timeCollapse= 0.0f;
+        senolTime.text = "ŞENOL " + timeCollapse;
         target = OpponentWayPoints.points[0];
     }
 
@@ -32,8 +32,8 @@ public class Opponent : MonoBehaviour
         }
         restartGame();
 
-        distanceTravelZ.z += transform.position.z;
-        senolTime.text = "ŞENOL " + distanceTravelZ.z.ToString("0");
+        timeCollapse += Time.deltaTime;
+        senolTime.text = "ŞENOL " + timeCollapse.ToString("F1");
     }
 
     void GetNextWayPoint()
@@ -52,8 +52,8 @@ public class Opponent : MonoBehaviour
         if (transform.position.y < -5.0f)
         {
             transform.position = new Vector3(0, 0, 0);
-            distanceTravelZ.z = 0;
-            senolTime.text = "ŞENOL " + distanceTravelZ.z;
+            timeCollapse = 0;
+            senolTime.text = "ŞENOL " + timeCollapse.ToString("F1");
         }
     }
 
@@ -70,14 +70,14 @@ public class Opponent : MonoBehaviour
         {
             gameOver = false;
             transform.position = new Vector3(0, 0, 0);
-            distanceTravelZ.z = 0;
-            senolTime.text = "ŞENOL " + distanceTravelZ.z;
+            timeCollapse = 0;
+            senolTime.text = "ŞENOL " + timeCollapse.ToString("F1");
 
         }
         else if (collision.gameObject.CompareTag("FinishLine"))
         {
 
-            senolTime.text = "ŞENOL " + distanceTravelZ.z;
+            senolTime.text = "ŞENOL " + timeCollapse.ToString("F1");
             gameOver = true;
 
         }

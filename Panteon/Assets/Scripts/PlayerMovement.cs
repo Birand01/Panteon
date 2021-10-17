@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,16 +12,18 @@ public class PlayerMovement : MonoBehaviour
     private float rotatorForce = 15.0f; 
     public Rigidbody playerRb;
     public GameObject paintPlane;
-    private float moveSpeed = 15.0f;
+    public float moveSpeed = 15.0f;
     public float gravityModifier;
     public bool isOnGround = true;
-   
-
+    private Animator playerAnim;
+    public TextMeshProUGUI birandTime;
+    public float timeCollapse;
    
     void Start()
     {
-
-       
+        timeCollapse = 0.0f ;
+        birandTime.text = "BiRAND " + timeCollapse;
+        playerAnim = GetComponent<Animator>();
         playerRb = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
 
@@ -32,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
         HorizontalMove();
         JumpKey();
         restartGame();
+
+        timeCollapse += Time.deltaTime;
+        birandTime.text = "BİRAND " + timeCollapse.ToString("F1");
     }
 
     private void HorizontalMove()
@@ -73,14 +79,17 @@ public class PlayerMovement : MonoBehaviour
         {
             gameOver = false;
             transform.position = new Vector3(0, 0, 6);
-
+            timeCollapse = 0.0f ;
+            birandTime.text = "BİRAND " + timeCollapse.ToString("F1");
         }
         else if(collision.gameObject.CompareTag("FinishLine"))
         {
+            gameOver = true;
             collision.gameObject.SetActive(false);
             paintPlane.gameObject.SetActive(true);
-            gameOver = true;
-            
+            playerAnim.SetFloat("Speed_f", 0.20f);
+            birandTime.text = "BİRAND " + timeCollapse.ToString("F1");
+           
         }
        
     }
@@ -96,4 +105,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
    
+   
+
 }

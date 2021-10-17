@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class Paintable : MonoBehaviour
 {
     public GameObject Brush;
     public GameObject nextLevelButton;
     public float BrushSize ;
-    private float xRange = 14.0f;
-    private float yRangeUp = 12.25f;
-    private float yRangeDown = 3.2f;
+    
    
   
     void Start()
@@ -44,7 +43,7 @@ public class Paintable : MonoBehaviour
     IEnumerator PaintCo()
     {
         yield return new WaitForSeconds(10.0f);
-        Brush.gameObject.SetActive(false);
+       // Brush.gameObject.SetActive(false);
         nextLevelButton.gameObject.SetActive(true);
     }
 
